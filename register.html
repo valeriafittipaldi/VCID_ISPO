@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Registrieren</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label for="username">Benutzername:</label>
+        {{ form.username(size=32) }}
+        <label for="password">Passwort:</label>
+        {{ form.password(size=32) }}
+        {{ form.submit() }}
+    </form>
 
+    <footer>
+        <p>Bereits ein Konto? <a href="{{ url_for('login') }}">Hier einloggen</a>.</p>
+    </footer>
+</body>
+</html>
