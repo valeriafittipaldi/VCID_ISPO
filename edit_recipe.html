@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezept bearbeiten</title>
+</head>
+<body>
+    <h1>Rezept bearbeiten</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div>
+            <label for="title">Titel:</label>
+            {{ form.title() }}
+        </div>
+
+        <div>
+            <label for="ingredients">Zutaten:</label>
+            {{ form.ingredients() }}
+        </div>
+
+        <div>
+            <label for="instructions">Zubereitung:</label>
+            {{ form.instructions() }}
+        </div>
+
+        <div>
+            <label for="image">Bild:</label>
+            {{ form.image() }}
+        </div>
+
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">Zurück zum Dashboard</a>
+</body>
+</html>
 
