@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezeptseite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Willkommen auf meiner Rezeptseite</h1>
+    </header>
 
+    <section>
+        <h2>Rezepte</h2>
+        <ul>
+            {% for recipe in recipes %}
+            <li>
+                <h3>{{ recipe.title }}</h3>
+                {% if recipe.image %}
+                <img src="{{ url_for('static', filename=recipe.image) }}" alt="{{ recipe.title }}" width="200">
+                {% endif %}
+                <p><strong>Zutaten:</strong> {{ recipe.ingredients }}</p>
+                <p><strong>Zubereitung:</strong> {{ recipe.instructions }}</p>
+            </li>
+            {% else %}
+            <p>Es sind noch keine Rezepte vorhanden.</p>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer>
+        <p><a href="{{ url_for('login') }}">Login</a> oder <a href="{{ url_for('register') }}">Registrieren</a>, um Rezepte zu verwalten.</p>
+    </footer>
+</body>
+</html>
