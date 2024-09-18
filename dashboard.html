@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Du bist angemeldet als {{ current_user.username }}. Du kannst nun Rezepte erstellen, bearbeiten und löschen. Viel Spaß!</p>
 
+    <h2>Neues Rezept erstellen</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.title.label }}<br>
+            {{ form.title(size=40) }}
+        </div>
+        <div>
+            {{ form.ingredients.label }}<br>
+            {{ form.ingredients(cols=40, rows=5) }}
+        </div>
+        <div>
+            {{ form.instructions.label }}<br>
+            {{ form.instructions(cols=40, rows=5) }}
+        </div>
+        <div>
+            {{ form.image.label }}<br>
+            {{ form.image() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+
+    <h2>Rezepte</h2>
+    {% if recipes %}
+        <ul>
+        {% for recipe in recipes %}
+            <li>
+                <h3>{{ recipe.title }}</h3>
+                {% if recipe.image %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ recipe.image) }}" alt="{{ recipe.title }}" style="max-width: 200px;">
+                {% endif %}
+                <p><strong>Zutaten:</strong><br>{{ recipe.ingredients }}</p>
+                <p><strong>Zubereitung:</strong><br>{{ recipe.instructions }}</p>
+
+                <a href="{{ url_for('edit_recipe', id=recipe.id) }}">Bearbeiten</a>
+                <form action="{{ url_for('delete_recipe', id=recipe.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Möchtest du dieses Rezept wirklich löschen?');">Rezept löschen</button>
+            </form>
+
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Es sind noch keine Rezepte vorhanden.</p>
+    {% endif %}
+
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
