@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn instance to serve my project
+After=network.target
+
+[Service]
+User=valeria_fittipaldi
+Group=www-data
+WorkingDirectory=/home/valeria_fittipaldi/kochrezept-app
+ExecStart=/home/valeria_fittipaldi/kochrezept-app/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 app:app
+
+[Install]
+WantedBy=multi-user.target
